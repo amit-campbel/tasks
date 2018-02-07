@@ -19,12 +19,18 @@ class CreateTasksTable extends Migration
             $table->text('description');
             $table->smallInteger('status')->default(0);
             $table->smallInteger('type');
-            $table->integer('assigned_to')->nullable();
-            $table->integer('created_by');
-            $table->integer('updated_by');
+            $table->integer('assigned_to')->nullable()->unsigned();
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->timestamp('next_action_date')->nullable();
             $table->timestamps();
 
+        });
+
+        Schema::table('tasks', function($table) {
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('assigned_to')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

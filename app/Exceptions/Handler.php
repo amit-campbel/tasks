@@ -48,7 +48,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            return response()->json([
+                'error' => 'Invalid token or method not allowed'
+            ], 405);
+        } else if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
             return response()->json([
                 'error' => 'Resource not found'
             ], 404);

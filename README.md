@@ -32,7 +32,34 @@ A bit More-
 2) config/local.php - holds all task related options such as status, type etc
 
 # Usage -
-http://{your domain}/api/tasks?api_token={user token} - to get all tasks
-http://{your domain}/api/tasks/3/comments?api_token={user token}
+For Tasks
+GET 	http://{your domain}/api/tasks?api_token={user token} - to get all tasks
+GET 	http://{your domain}/api/tasks/1?api_token={user token} - to get particular task
+POST 	http://{your domain}/api/tasks?api_token={user token} - to create task
+		data from form fields to create- 
+		title : task1,
+		description : task1 desc,
+		type : 10 out of [10,20,30] (refer config\local.php for what these values represent (other options varchar, enum etc) )
+		status : 0 out of [0,10,20] (default 0 for new. refer config\local.php for what these values represent (other options varchar, enum etc) )
+		assigned_to : 3 (user id to which this task is assigned)
+PUT 	http://{your domain}/api/tasks/1?api_token={user token} - to update task 1
+		data from form fields to create- 
+		title : task1 updated,
+		description : task1 desc updated,
+		type : [10,20,30] (refer config\local.php for what these values represent )
+		status : [0,10,20] (default 0 for new. refer config\local.php for what these values represent )
+		assigned_to : 3 (user id to which this task is assigned)
+DELETE 	http://{your domain}/api/tasks/1?api_token={user token} - to delete particular task
 
-more reference in routes/api.php
+For Comments
+GET 	http://{your domain}/api/tasks/1/comments?api_token={user token} - to get all comments
+GET 	http://{your domain}/api/tasks/1/comments/1?api_token={user token} - to get particular comment
+POST 	http://{your domain}/api/tasks/1/comments?api_token={user token} - to create comment
+		data from form fields to create- 
+		comment : task1 comment,
+		reminder_date : 2018-01-06
+PUT 	http://{your domain}/api/tasks/1/comments/1?api_token={user token} - to update comment 1
+		data from form fields to create- 
+		comment : task1 comment updated,
+		reminder_date : 2018-01-06
+DELETE 	http://{your domain}/api/tasks/1/comments/1?api_token={user token} - to delete particular comment
